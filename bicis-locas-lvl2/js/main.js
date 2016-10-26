@@ -1,32 +1,52 @@
-function validateForm() 
-{
-var nombre = document.getElementById("name");
-var apellido = document.getElementById("lastname");
-var emilio = document.getElementById("input-email");
-var contra = document.getElementById("input-password");
-var seleccion = document.getElementsByTagName("select")[0].selectedIndex;
-var regexEmilio = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-var regexNombreApellido = /^[ÑA-Za-z _]*[ñA-Za-z][ñA-Za-z _]*$/;
-var err = true;
-
-	if (nombre.value == null || nombre.value == "" || !regexNombreApellido.test(nombre.value)) 	{
-		var spane = document.createElement("span");
-		spane.innerHTML="Ingresa nombre, debe contener solo letras, primera letra mayúscula";
-		nombre.parentNode.appendChild(spane);
-		err = false;
-
+function validateForm() {
+	var spanes = document.getElementsByTagName("span");
+	for (var i = 0; i < spanes.length; i++) {
+		spanes[i].parentNode.removeChild(spanes[i]);
 	}
-	if (appellido.value == null || apellido.value == "" || !regexNombreApellido.test(apellido.value)) {
-		var spane = document.createElement("span");
+	var nombre = document.getElementById("name");
+	var apellido = document.getElementById("lastname");
+	var emilio = document.getElementById("input-email");
+	var contra = document.getElementById("input-password");
+	var seleccion = document.getElementsByTagName("select")[0];
+	var regexEmilio = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	var regexNombreApellido = /^[ÑA-Za-z _]*[ñA-Za-z][ñA-Za-z _]*$/;
+	var err = true;
+	var spane = document.createElement("span");
+	if (nombre.value == null || nombre.value == "" || !regexNombreApellido.test(nombre.value)) 	{
+		spane.innerHTML="Debe contener solo letras, primera letra mayúscula";
+		nombre.parentNode.appendChild(spane);
+		err = false;		
+	}
+	else if (apellido.value == null || apellido.value == "" || !regexNombreApellido.test(apellido.value)) {	
 		spane.innerHTML = "Ingresa apellido, solo letras, primera letra mayúscula";
 		apellido.parentNode.appendChild(spane);
+		err = false;
 	}
-	if (emilio.value == null || emilio.value == "" || !regexEmilio(emilio.value)) {
-
+	else if (emilio.value == null || emilio.value == "" || !regexEmilio.test(emilio.value)) {
+		spane.innerHTML = "Ingresa un correo electrónico válido"
+		emilio.parentNode.appendChild(spane);
+		err = false;
 	}
-
+	else if (contra.value == null || contra.value == "" || contra.value.length < 6) {
+		spane.innerHTML = "Ingresa una contraseña con 6 caracteres o más";
+		contra.parentNode.appendChild(spane);
+		err = false;
+	}
+	else if (contra.value == "password" || contra.value == 123456 || contra.value == 098754) {
+		spane.innerHTML = "Ingresa otra contraseña por favor";
+		contra.parentNode.appendChild(spane);
+		err = false;
+	}
+	else if (seleccion.value == "0" || seleccion.value == null) {
+		spane.innerHTML = "¡Escoge un tipo de Bici Loca!";
+		seleccion.parentNode.appendChild(spane);
+		err = false;
+	}
 	return err;
 };
+
+//VER que seleccion value es comparable con "0", no con 0
+
 
 /*
 
