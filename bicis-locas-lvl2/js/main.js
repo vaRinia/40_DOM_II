@@ -1,6 +1,6 @@
 function validateForm() {
 	var spanes = document.getElementsByTagName("span");
-	for (var i = 0; i < spanes.length; i++) {
+	for (var i = 0; i < spanes.length - 1; i++) {
 		spanes[i].parentNode.removeChild(spanes[i]);
 	}
 	var nombre = document.getElementById("name");
